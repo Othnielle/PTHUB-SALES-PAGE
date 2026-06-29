@@ -5,9 +5,9 @@ const crypto = require('crypto');
 const path = require('path');
 const { Readable } = require('stream');
 
-const { PRODUCTS, planFromReference, getBundlePricing, validatePaymentAmount } = require('./lib/products');
-const { createDownloadToken, verify: verifyToken } = require('./lib/token');
-const store = require('./lib/store');
+const { PRODUCTS, planFromReference, getBundlePricing, validatePaymentAmount } = require('./products');
+const { createDownloadToken, verify: verifyToken } = require('./token');
+const store = require('./store');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
