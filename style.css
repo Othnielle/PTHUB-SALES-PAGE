@@ -1,0 +1,250 @@
+/* ===========================================================
+   VIBE & LAUNCH — Ebook Design System
+   Display: Poppins (bold, geometric — echoes the cover lettering)
+   Body:    Lora (warm serif — readable, calm, contrasts the sans)
+   Palette: cream paper + the cover's purple → pink → orange gradient
+   =========================================================== */
+
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Regular.ttf'); font-weight:400; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Medium.ttf'); font-weight:500; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Bold.ttf'); font-weight:700; }
+@font-face { font-family:'Poppins'; src:url('/usr/share/fonts/truetype/google-fonts/Poppins-Italic.ttf'); font-weight:400; font-style:italic; }
+@font-face { font-family:'Lora'; src:url('/usr/share/fonts/truetype/google-fonts/Lora-Variable.ttf'); font-weight:400 700; }
+@font-face { font-family:'Lora'; src:url('/usr/share/fonts/truetype/google-fonts/Lora-Italic-Variable.ttf'); font-weight:400 700; font-style:italic; }
+
+:root{
+  /* paper */
+  --paper:        #F8F1E6;   /* warm cream, not stark white */
+  --paper-deep:   #F1E7D6;   /* slightly deeper cream for panels */
+  --paper-edge:   #EADFC9;   /* hairline rules on cream */
+
+  /* ink */
+  --ink:          #241F35;   /* warm near-black, soft navy-plum */
+  --ink-soft:     #564E6B;   /* secondary text */
+  --ink-faint:    #8A82A0;   /* captions / meta */
+
+  /* the cover gradient, used as accent only */
+  --purple:       #6D3CD8;
+  --violet:       #8B4FE0;
+  --pink:         #E2417E;
+  --orange:       #F39C2D;
+
+  --grad: linear-gradient(115deg, var(--purple) 0%, var(--pink) 55%, var(--orange) 100%);
+  --grad-soft: linear-gradient(115deg, #EFE3FB 0%, #FBE3EC 55%, #FDEDD9 100%);
+
+  --tint-lav:   #EFE6FA;
+  --tint-pink:  #FBE6EE;
+  --tint-peach: #FDEEDC;
+
+  --page-w: 6in;
+  --page-h: 9in;
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:'Lora', 'Liberation Serif', serif;
+  color:var(--ink);
+  background:var(--paper);
+}
+
+.page{
+  width:var(--page-w);
+  height:var(--page-h);
+  position:relative;
+  background:var(--paper);
+  overflow:hidden;
+  page-break-after:always;
+  break-after:page;
+}
+.page:last-child{ page-break-after:auto; }
+
+/* ---------- shared furniture ---------- */
+.content{
+  padding: 0.58in 0.58in 0.78in 0.58in;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+
+.kicker{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:9.5pt;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--pink);
+  margin:0 0 6px 0;
+}
+
+h1.h-title{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:19.5pt;
+  line-height:1.2;
+  margin:0 0 7px 0;
+  color:var(--ink);
+}
+h1.h-title .accent{
+  color: var(--pink);
+}
+
+h2.h-sub{
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:12.5pt;
+  margin:14px 0 6px 0;
+  color:var(--purple);
+}
+
+p{
+  font-size:13pt;
+  line-height:1.46;
+  margin:0 0 9px 0;
+  color:var(--ink);
+}
+.lede{
+  font-size:13pt;
+  color:var(--ink-soft);
+  font-style:italic;
+}
+small, .caption{
+  font-family:'Poppins',sans-serif;
+  font-size:9pt;
+  color:var(--ink-faint);
+  line-height:1.45;
+}
+
+ul, ol{ margin:0 0 9px 0; padding-left:1.1em; }
+li{ font-size:12.5pt; line-height:1.4; margin-bottom:5px; }
+
+.divider{
+  height:3px;
+  width:42px;
+  background:var(--grad);
+  border-radius:3px;
+  margin:3px 0 11px 0;
+}
+
+.pagefoot{
+  position:absolute;
+  bottom:0.28in; left:0.58in; right:0.58in;
+  display:flex; justify-content:space-between;
+  font-family:'Poppins',sans-serif;
+  font-size:8.5pt;
+  color:var(--ink-faint);
+  letter-spacing:.03em;
+}
+
+/* callout / box styles */
+.box{
+  border-radius:14px;
+  padding:11px 14px;
+  margin:8px 0 11px 0;
+}
+.box-lav{ background:var(--tint-lav); }
+.box-pink{ background:var(--tint-pink); }
+.box-peach{ background:var(--tint-peach); }
+.box-title{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:10.5pt;
+  margin:0 0 5px 0;
+  display:flex; align-items:center; gap:7px;
+}
+.box p{ font-size:12pt; line-height:1.42; }
+
+.prompt-box{
+  background:var(--ink);
+  border-radius:14px;
+  padding:13px 15px;
+  margin:8px 0 11px 0;
+}
+.prompt-box .label{
+  font-family:'Poppins',sans-serif;
+  font-size:8.5pt;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#F0AFC8;
+  margin-bottom:5px;
+  font-weight:700;
+}
+.prompt-box p{
+  color:#F8F1E6;
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:12pt;
+  margin:0;
+  line-height:1.45;
+}
+
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:9pt;
+  padding:4px 10px;
+  border-radius:20px;
+  background:var(--tint-lav);
+  color:var(--purple);
+}
+
+table{ width:100%; border-collapse:collapse; margin:8px 0 14px 0; }
+th{
+  font-family:'Poppins',sans-serif;
+  font-size:9.5pt;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+  color:#fff;
+  background:var(--purple);
+  text-align:left;
+  padding:8px 10px;
+}
+th:first-child{ border-radius:8px 0 0 0; }
+th:last-child{ border-radius:0 8px 0 0; }
+td{
+  font-size:11.5pt;
+  padding:8px 10px;
+  border-bottom:1px solid var(--paper-edge);
+  vertical-align:top;
+}
+tr:nth-child(even) td{ background:#FBF6EC; }
+
+.num-badge{
+  width:30px; height:30px;
+  border-radius:50%;
+  background:var(--grad);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:13pt;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0;
+}
+
+.step{
+  display:flex; gap:11px; align-items:flex-start;
+  margin-bottom:10px;
+}
+.step .step-body{ flex:1; padding-top:1px; }
+.step .step-title{
+  font-family:'Poppins',sans-serif;
+  font-weight:700;
+  font-size:11.5pt;
+  margin:0 0 2px 0;
+  color:var(--ink);
+}
+.step p{ margin:0; font-size:11.8pt; line-height:1.38; }
+
+.quote{
+  font-family:'Lora',serif;
+  font-style:italic;
+  font-size:15pt;
+  line-height:1.45;
+  color:var(--purple);
+  margin:10px 0;
+  padding-left:14px;
+  border-left:3px solid var(--orange);
+}

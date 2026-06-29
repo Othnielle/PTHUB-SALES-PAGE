@@ -1,0 +1,17 @@
+{
+  "name": "vibe-and-launch-secure",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Vibe & Launch — secure Paystack checkout with webhook-verified, one-time, expiring download tokens.",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "dotenv": "^16.4.5"
+  }
+}

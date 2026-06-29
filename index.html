@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe & Launch — Build &amp; Launch Real Websites &amp; Apps With AI</title>
+<link rel="preconnect" href="https://js.paystack.co">
+<link rel="stylesheet" href="style.css">
+<style>
+:root{
+  --maxw: 1080px;
+}
+html{ scroll-behavior:smooth; }
+body{ background:var(--paper); }
+.wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+img{ max-width:100%; display:block; }
+a{ text-decoration:none; }
+button{ font-family:'Poppins',sans-serif; cursor:pointer; border:none; }
+
+/* ===== NAV ===== */
+.nav{ position:sticky; top:0; z-index:50; background:rgba(248,241,230,0.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--paper-edge); }
+.nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:64px; gap:18px; }
+.nav .brand{ display:flex; align-items:center; gap:8px; font-family:'Poppins',sans-serif; font-weight:700; font-size:15px; color:var(--ink); flex-shrink:0; }
+.nav .navlinks{ display:flex; gap:26px; align-items:center; flex:1; justify-content:center; }
+.nav .navlinks a{ font-family:'Poppins',sans-serif; font-weight:600; font-size:13.5px; color:var(--ink-soft); position:relative; transition:color .2s; }
+.nav .navlinks a::after{ content:''; position:absolute; left:0; bottom:-6px; width:0; height:2px; background:var(--grad); border-radius:2px; transition:width .25s ease; }
+.nav .navlinks a:hover{ color:var(--ink); }
+.nav .navlinks a:hover::after{ width:100%; }
+.nav .navcta{ background:var(--grad); color:#fff; padding:9px 18px; border-radius:20px; font-weight:700; font-size:13.5px; flex-shrink:0; transition:transform .2s ease, box-shadow .2s ease; display:inline-block; }
+.nav .navcta:hover{ transform:translateY(-2px); box-shadow:0 8px 18px rgba(226,65,126,0.32); }
+.nav-burger{ display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px; background:none; padding:12px; width:44px; height:44px; flex-shrink:0; margin:-12px -12px -12px 0; }
+.nav-burger span{ width:22px; height:2px; background:var(--ink); border-radius:2px; transition:transform .25s ease, opacity .25s ease; }
+.nav-burger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.nav-burger.open span:nth-child(2){ opacity:0; }
+.nav-burger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu{ display:none; flex-direction:column; background:var(--paper); border-top:1px solid var(--paper-edge); overflow:hidden; max-height:0; transition:max-height .3s ease; }
+.mobile-menu.open{ max-height:280px; }
+.mobile-menu a{ font-family:'Poppins',sans-serif; font-weight:600; font-size:14.5px; color:var(--ink); padding:14px 28px; border-bottom:1px solid var(--paper-edge); }
+.mobile-menu a.mm-buy{ background:var(--grad); color:#fff; font-weight:700; }
+
+/* ===== HERO ===== */
+.hero{ background:var(--ink); position:relative; overflow:hidden; padding:64px 0 0 0; }
+.hero .glow{ position:absolute; border-radius:50%; filter:blur(2px); opacity:0.45; }
+.hero .wrap{ position:relative; z-index:2; display:grid; grid-template-columns:1.05fr 0.95fr; gap:40px; align-items:center; padding-bottom:0; }
+.hero-pill{ display:inline-flex; align-items:center; gap:7px; font-family:'Poppins',sans-serif; font-weight:700; font-size:11.5px; letter-spacing:.04em; color:#F0AFC8; background:rgba(226,65,126,0.12); border:1px solid rgba(226,65,126,0.35); padding:7px 14px; border-radius:20px; margin-bottom:22px; }
+.hero h1{ font-family:'Poppins',sans-serif; font-weight:700; font-size:44px; line-height:1.12; color:#FBF6EC; margin:0 0 18px 0; }
+.hero h1 .hl{ color:#F0789F; }
+.hero .sub{ font-family:'Lora',serif; font-size:17px; font-style:italic; color:#C9C2E0; max-width:480px; margin:0 0 28px 0; line-height:1.5; }
+.hero .ctarow{ display:flex; gap:14px; align-items:center; margin-bottom:18px; flex-wrap:wrap; }
+.btn-primary{ background:var(--grad); color:#fff; font-weight:700; font-size:15px; padding:15px 26px; border-radius:12px; box-shadow:0 10px 26px rgba(226,65,126,0.28); transition:transform .2s ease, box-shadow .2s ease; display:inline-block; }
+.btn-primary:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 14px 32px rgba(226,65,126,0.4); }
+.btn-ghost{ color:#E7E1F5; font-weight:600; font-size:14px; border:1.5px solid rgba(255,255,255,0.25); padding:14px 22px; border-radius:12px; transition:background .2s ease, border-color .2s ease, transform .2s ease; display:inline-block; }
+.btn-ghost:hover{ background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.5); transform:translateY(-2px); }
+.hero .trust{ font-family:'Poppins',sans-serif; font-size:12px; color:#8F87A8; }
+.hero-visual{ position:relative; height:430px; }
+.fan-card{ position:absolute; width:230px; border-radius:14px; box-shadow:0 24px 50px rgba(0,0,0,0.45); border:1px solid rgba(255,255,255,0.08); overflow:hidden; opacity:0; transform:translateY(30px) rotate(0deg); transition:opacity .7s ease, transform .45s ease, box-shadow .3s ease; }
+.fan-card.in{ opacity:1; transform:translateY(0) rotate(var(--rot)); }
+.fan-card.in:hover{ transform:translateY(-10px) rotate(var(--rot)) scale(1.04); box-shadow:0 30px 60px rgba(0,0,0,0.55); z-index:5; }
+.fan-card img{ width:100%; display:block; }
+.fc1{ left:0; top:60px; z-index:1; --rot:-9deg; }
+.fc2{ left:90px; top:10px; z-index:2; --rot:0deg; }
+.fc3{ left:185px; top:65px; z-index:1; --rot:9deg; }
+.hero-flame{ position:absolute; bottom:-40px; left:50%; transform:translateX(-50%); width:340px; height:140px; background:radial-gradient(ellipse at center, rgba(243,156,45,0.45) 0%, rgba(226,65,126,0.22) 45%, transparent 75%); filter:blur(6px); z-index:0; }
+
+/* ===== PROBLEM/FIX ===== */
+.section{ padding:74px 0; }
+.section-head{ text-align:center; max-width:620px; margin:0 auto 44px auto; }
+.eyebrow{ font-family:'Poppins',sans-serif; font-weight:700; font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--pink); margin-bottom:10px; }
+.section-head h2{ font-family:'Poppins',sans-serif; font-weight:700; font-size:30px; color:var(--ink); margin:0 0 12px 0; line-height:1.2; }
+.section-head p{ font-family:'Lora',serif; font-size:15.5px; color:var(--ink-soft); line-height:1.5; margin:0; }
+
+.pf-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.pf-card{ border-radius:18px; padding:28px 26px; transition:transform .25s ease, box-shadow .25s ease; }
+.pf-card:hover{ transform:translateY(-6px) !important; }
+.pf-old:hover{ box-shadow:0 16px 32px rgba(168,149,114,0.18); }
+.pf-new:hover{ box-shadow:0 16px 36px rgba(226,65,126,0.22); }
+.pf-old{ background:#FBF1EA; border:1.5px solid #EADFC9; }
+.pf-new{ background:var(--ink); }
+.pf-card h3{ font-family:'Poppins',sans-serif; font-weight:700; font-size:15px; margin:0 0 16px 0; }
+.pf-old h3{ color:#A89572; }
+.pf-new h3{ color:#F0AFC8; }
+.pf-row{ display:flex; gap:10px; align-items:flex-start; margin-bottom:13px; font-size:14px; line-height:1.45; }
+.pf-old .pf-row{ color:#7A6E54; }
+.pf-new .pf-row{ color:#E2DCEF; }
+.pf-row .ic{ flex-shrink:0; margin-top:2px; }
+
+/* ===== PRODUCT CARDS ===== */
+.prod-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.prod-card{ background:#fff; border:1.5px solid var(--paper-edge); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; transition:transform .25s ease, box-shadow .25s ease; }
+.prod-card:hover{ transform:translateY(-8px) !important; box-shadow:0 22px 44px rgba(36,31,53,0.14); }
+.prod-card .pimg{ background:var(--ink); padding:22px 22px 0 22px; display:flex; justify-content:center; overflow:hidden; }
+.prod-card .pimg img{ width:78%; border-radius:6px; box-shadow:0 14px 30px rgba(0,0,0,0.35); transition:transform .35s ease; }
+.prod-card:hover .pimg img{ transform:translateY(-6px) scale(1.03); }
+.prod-card .pbody{ padding:20px 22px 24px 22px; flex:1; display:flex; flex-direction:column; }
+.prod-tag{ font-family:'Poppins',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:.08em; text-transform:uppercase; color:var(--purple); background:var(--tint-lav); padding:4px 10px; border-radius:10px; display:inline-block; margin-bottom:10px; width:fit-content; }
+.prod-card h3{ font-family:'Poppins',sans-serif; font-weight:700; font-size:18px; color:var(--ink); margin:0 0 8px 0; }
+.prod-card ul{ margin:0 0 14px 0; padding-left:1.1em; flex:1; }
+.prod-card li{ font-size:13px; line-height:1.5; color:var(--ink-soft); margin-bottom:5px; }
+.prod-pages{ font-family:'Poppins',sans-serif; font-size:11.5px; color:var(--ink-faint); font-weight:600; }
+
+/* ===== TESTIMONIAL / STORY ===== */
+.story{ background:var(--ink); padding:70px 0; }
+.story .wrap{ max-width:740px; text-align:center; }
+.story .quote{ font-family:'Lora',serif; font-style:italic; font-size:21px; line-height:1.5; color:#F4EEFF; margin:0 0 22px 0; }
+.story .quote .accentmark{ color:#F39C2D; }
+.story .who{ font-family:'Poppins',sans-serif; font-weight:700; font-size:13.5px; color:#F0AFC8; }
+.story .who span{ display:block; font-weight:400; color:#9D93B8; font-size:12px; margin-top:3px; }
+
+/* ===== PRICING ===== */
+.email-capture{ max-width:480px; margin:0 auto 36px auto; text-align:center; }
+.email-capture label{ font-family:'Poppins',sans-serif; font-weight:600; font-size:12.5px; color:var(--ink-soft); display:block; margin-bottom:8px; }
+.email-capture input{ width:100%; padding:13px 16px; border-radius:10px; border:1.6px solid var(--paper-edge); font-family:'Lora',serif; font-size:14px; background:#fff; transition:border-color .2s ease, box-shadow .2s ease; }
+.email-capture input:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(109,60,216,0.12); }
+.email-capture .hint{ font-family:'Poppins',sans-serif; font-size:10.5px; color:var(--ink-faint); margin-top:7px; }
+.email-capture .err{ color:var(--pink); font-family:'Poppins',sans-serif; font-size:11.5px; margin-top:6px; min-height:14px; }
+
+.price-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:18px; align-items:stretch; }
+.price-card{ background:#fff; border:1.6px solid var(--paper-edge); border-radius:18px; padding:28px 24px; display:flex; flex-direction:column; position:relative; transition:transform .25s ease, box-shadow .25s ease; }
+.price-card:hover{ transform:translateY(-7px) !important; box-shadow:0 20px 40px rgba(36,31,53,0.13); }
+.price-card:not(.feat):hover{ border-color:var(--violet); box-shadow:0 18px 38px rgba(109,60,216,0.14); }
+.price-card.feat{ border:2px solid var(--purple); box-shadow:0 16px 40px rgba(109,60,216,0.16); }
+.price-card.feat:hover{ box-shadow:0 22px 48px rgba(109,60,216,0.26); }
+.price-badge{ position:absolute; top:-13px; left:24px; background:var(--grad); color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:10px; letter-spacing:.05em; text-transform:uppercase; padding:5px 12px; border-radius:12px; }
+.price-card h3{ font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:var(--ink); margin:6px 0 4px 0; }
+.price-card .pdesc{ font-size:12.5px; color:var(--ink-soft); margin:0 0 16px 0; line-height:1.4; min-height:34px; }
+.price-amt{ font-family:'Poppins',sans-serif; font-weight:700; font-size:32px; color:var(--ink); margin-bottom:2px; }
+.price-amt sup{ font-size:15px; top:-12px; }
+.price-usd{ font-family:'Poppins',sans-serif; font-size:11.5px; color:var(--ink-faint); margin-bottom:18px; }
+.price-card ul{ margin:0 0 22px 0; padding-left:1.1em; flex:1; }
+.price-card li{ font-size:12.8px; line-height:1.5; color:var(--ink-soft); margin-bottom:6px; }
+.buy-btn{ background:var(--grad); color:#fff; font-weight:700; font-size:14px; padding:13px; border-radius:10px; width:100%; text-align:center; transition:transform .2s ease, box-shadow .2s ease, filter .2s ease; }
+.buy-btn:hover:not(:disabled){ transform:translateY(-2px); box-shadow:0 10px 22px rgba(226,65,126,0.32); filter:brightness(1.04); }
+.buy-btn:active:not(:disabled){ transform:translateY(0); }
+.buy-btn:disabled{ opacity:0.55; cursor:not-allowed; }
+.buy-btn:focus-visible{ outline:none; box-shadow:0 0 0 4px rgba(109,60,216,0.28); }
+.curr-btn:focus-visible{ outline:none; box-shadow:0 0 0 3px rgba(109,60,216,0.22); }
+.price-card.alt .buy-btn{ background:var(--ink); }
+.price-card.alt .buy-btn:hover:not(:disabled){ box-shadow:0 10px 22px rgba(36,31,53,0.35); }
+
+.currency-toggle{ display:flex; gap:6px; margin-bottom:12px; }
+.curr-btn{
+  flex:1;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:12px;
+  padding:7px 0;
+  border-radius:8px;
+  border:1.4px solid var(--paper-edge);
+  background:#fff;
+  color:var(--ink-soft);
+  cursor:pointer;
+  transition:all .15s ease;
+}
+.curr-btn:hover{ border-color:var(--purple); }
+.curr-btn.active{
+  background:var(--grad);
+  border-color:transparent;
+  color:#fff;
+}
+
+/* ===== THANK YOU OVERLAY ===== */
+.ty-overlay{ position:fixed; inset:0; background:rgba(36,31,53,0.78); display:none; align-items:center; justify-content:center; z-index:200; padding:20px; }
+.ty-overlay.show{ display:flex; }
+.ty-box{ background:var(--paper); border-radius:20px; max-width:480px; width:100%; padding:38px 32px; text-align:center; }
+.ty-box h3{ font-family:'Poppins',sans-serif; font-weight:700; font-size:22px; color:var(--ink); margin:14px 0 10px 0; }
+.ty-box p{ font-family:'Lora',serif; font-size:14px; color:var(--ink-soft); margin:0 0 22px 0; line-height:1.5; }
+.ty-links{ display:flex; flex-direction:column; gap:10px; }
+.ty-links a{ background:#fff; border:1.5px solid var(--paper-edge); border-radius:10px; padding:13px; font-family:'Poppins',sans-serif; font-weight:600; font-size:13.5px; color:var(--ink); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.ty-links a:hover{ transform:translateY(-2px); box-shadow:0 10px 20px rgba(36,31,53,0.12); border-color:var(--purple); }
+.ty-close{ margin-top:18px; font-family:'Poppins',sans-serif; font-size:12.5px; color:var(--ink-faint); display:inline-block; cursor:pointer; transition:color .2s; }
+.ty-close:hover{ color:var(--ink); }
+.ty-ref{ font-family:'Poppins',sans-serif; font-size:11px; color:var(--ink-faint); background:#fff; border:1px solid var(--paper-edge); border-radius:8px; padding:8px 10px; margin-top:4px; word-break:break-all; }
+.spinner{ width:42px; height:42px; border-radius:50%; border:4px solid var(--paper-edge); border-top-color:var(--purple); margin:0 auto 16px auto; animation:spin .8s linear infinite; }
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.ty-state{ display:none; }
+.ty-state.active{ display:block; }
+
+/* ===== FAQ (accordion) ===== */
+.faq-item{ border-bottom:1px solid var(--paper-edge); padding:18px 0; cursor:pointer; }
+.faq-item .faq-q{ display:flex; justify-content:space-between; align-items:center; gap:14px; }
+.faq-item h4{ font-family:'Poppins',sans-serif; font-weight:700; font-size:14.5px; color:var(--ink); margin:0; transition:color .2s; }
+.faq-item:hover h4{ color:var(--purple); }
+.faq-plus{ font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:var(--purple); flex-shrink:0; transition:transform .25s ease; }
+.faq-item.open .faq-plus{ transform:rotate(45deg); }
+.faq-a{ font-size:13.5px; color:var(--ink-soft); margin:0; line-height:1.5; max-height:0; overflow:hidden; opacity:0; transition:max-height .3s ease, opacity .3s ease, margin-top .3s ease; }
+.faq-item.open .faq-a{ max-height:200px; opacity:1; margin-top:10px; }
+
+/* ===== FOOTER ===== */
+.footer{ background:var(--ink); padding:48px 0 28px 0; }
+.footer .top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; margin-bottom:28px; }
+.footer .brand{ font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; color:#FBF6EC; }
+.footer .tag{ font-family:'Lora',serif; font-style:italic; font-size:12.5px; color:#9D93B8; margin-top:6px; max-width:280px; }
+.footer .cols{ display:flex; gap:50px; }
+.footer .col h5{ font-family:'Poppins',sans-serif; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:#766C95; margin:0 0 10px 0; }
+.footer .col a, .footer .col span{ display:block; font-family:'Poppins',sans-serif; font-size:13px; color:#C9C2E0; margin-bottom:8px; transition:color .2s; }
+.footer .col a:hover{ color:#F0AFC8; }
+.footer .bottom{ border-top:1px solid rgba(255,255,255,0.08); padding-top:20px; font-family:'Poppins',sans-serif; font-size:11.5px; color:#6E6588; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px){
+  .wrap{ padding:0 22px; }
+  .prod-grid, .price-grid{ gap:18px; }
+  .price-grid{ grid-template-columns:repeat(2,1fr); }
+}
+
+@media (max-width: 860px){
+  .hero .wrap{ grid-template-columns:1fr; }
+  .hero h1{ font-size:32px; }
+  .hero-visual{ height:280px; margin-top:10px; }
+  .fan-card{ width:160px; }
+  .fc1{ left:0; top:50px; } .fc2{ left:65px; top:0px; } .fc3{ left:130px; top:55px; }
+  .pf-grid, .prod-grid{ grid-template-columns:1fr; }
+  .nav .navlinks{ display:none; }
+  .nav-burger{ display:flex; }
+  .mobile-menu{ display:flex; }
+  .footer .top{ flex-direction:column; }
+  .section{ padding:54px 0; }
+  .section-head h2{ font-size:25px; }
+}
+
+@media (max-width: 680px){
+  .hero{ padding-top:0; }
+  .hero .wrap{ padding-top:36px; padding-bottom:36px; gap:28px; }
+  .hero h1{ font-size:28px; }
+  .hero .sub{ font-size:15.5px; }
+  .ctarow{ flex-direction:column; align-items:stretch; }
+  .ctarow a{ text-align:center; }
+  .hero-visual{ height:240px; }
+  .fan-card{ width:140px; }
+  .fc1{ left:0; top:46px; } .fc2{ left:58px; top:0px; } .fc3{ left:116px; top:50px; }
+  .nav .brand{ font-size:13.5px; }
+  .nav .brand svg{ width:18px; height:18px; }
+  .nav .navcta{ font-size:12px; padding:8px 13px; }
+  .section-head h2{ font-size:22px; }
+  .section-head p{ font-size:14px; }
+  .story .quote{ font-size:17px; }
+  .price-amt{ font-size:27px; }
+  .price-grid{ grid-template-columns:1fr; }
+}
+
+@media (max-width: 480px){
+  .wrap{ padding:0 16px; }
+  .nav .wrap{ gap:10px; }
+  .nav .navcta{ display:none; }
+  .hero h1{ font-size:24px; line-height:1.18; }
+  .hero-pill{ font-size:10.5px; padding:6px 12px; }
+  .hero-visual{ height:200px; }
+  .fan-card{ width:118px; border-radius:10px; }
+  .fc1{ left:0; top:38px; } .fc2{ left:48px; top:0px; } .fc3{ left:96px; top:42px; }
+  .btn-primary, .btn-ghost{ width:100%; box-sizing:border-box; text-align:center; }
+  .section-head h2{ font-size:20px; }
+  .pf-card{ padding:22px 20px; }
+  .prod-card .pbody{ padding:18px 18px 20px 18px; }
+  .price-card{ padding:24px 20px; }
+  .price-amt{ font-size:25px; }
+  .email-capture label{ font-size:12px; }
+  .footer .cols{ gap:30px; flex-wrap:wrap; }
+  .ty-box{ padding:30px 22px; }
+}
+
+@media (max-width: 360px){
+  .hero h1{ font-size:21px; }
+  .fan-card{ width:100px; }
+  .fc1{ left:0; top:32px; } .fc2{ left:40px; top:0px; } .fc3{ left:80px; top:36px; }
+  .hero-pill{ font-size:9.5px; }
+}
+/* ===== SCROLL REVEAL ===== */
+.reveal{ opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease; }
+.reveal.show{ opacity:1; transform:translateY(0); }
+.reveal-stagger.show .rs-item{ opacity:1; transform:translateY(0); }
+.rs-item{ opacity:0; transform:translateY(18px); transition:opacity .5s ease, transform .5s ease; }
+.rs-item:nth-child(1){ transition-delay:.05s; }
+.rs-item:nth-child(2){ transition-delay:.15s; }
+.rs-item:nth-child(3){ transition-delay:.25s; }
+.rs-item:nth-child(4){ transition-delay:.35s; }
+/* ===== RESEND LINKS ===== */
+.resend-box{ max-width:620px; margin:42px auto 0 auto; text-align:center; background:#FBF6EC; border:1.4px dashed var(--paper-edge); border-radius:16px; padding:24px 26px; }
+.resend-title{ font-family:'Poppins',sans-serif; font-weight:700; font-size:14.5px; color:var(--ink); margin-bottom:6px; }
+.resend-sub{ font-size:12.5px; color:var(--ink-soft); margin:0 0 16px 0; line-height:1.5; }
+.resend-row{ display:flex; gap:8px; flex-wrap:wrap; }
+.resend-row input{ flex:2; min-width:180px; padding:11px 14px; border-radius:9px; border:1.6px solid var(--paper-edge); font-family:'Poppins',sans-serif; font-size:12.5px; background:#fff; }
+.resend-row select{ flex:1; min-width:120px; padding:11px 10px; border-radius:9px; border:1.6px solid var(--paper-edge); font-family:'Poppins',sans-serif; font-size:12.5px; background:#fff; }
+.resend-row .resend-btn{ flex:1; min-width:140px; padding:11px 16px; }
+.resend-row input:focus, .resend-row select:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(109,60,216,0.12); }
+@media (max-width:560px){
+  .resend-row{ flex-direction:column; }
+  .resend-row input, .resend-row select, .resend-row .resend-btn{ min-width:0; width:100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <svg width="22" height="22" viewBox="0 0 64 64" fill="none"><defs><linearGradient id="gNav" x1="0" y1="64" x2="64" y2="0"><stop offset="0" stop-color="#6D3CD8"/><stop offset="0.55" stop-color="#E2417E"/><stop offset="1" stop-color="#F39C2D"/></linearGradient></defs><path d="M32 4C40 10 45 20 45 32c0 5-1.5 9.5-4 13l-9 9-9-9c-2.5-3.5-4-8-4-13C19 20 24 10 32 4Z" fill="url(#gNav)"/><circle cx="32" cy="26" r="5" fill="#F8F1E6"/></svg>
+      Vibe &amp; Launch
+    </div>
+    <div class="navlinks">
+      <a href="#inside" class="navlink-text">What's Inside</a>
+      <a href="#pricing" class="navlink-text">Pricing</a>
+      <a href="#faq" class="navlink-text">FAQ</a>
+    </div>
+    <a class="navcta" href="#pricing">Get the Bundle</a>
+    <button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#pricing" onclick="closeMobileNav()" class="mm-buy">🚀 Get the Bundle</a>
+    <a href="#inside" onclick="closeMobileNav()">What's Inside</a>
+    <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+    <a href="#faq" onclick="closeMobileNav()">FAQ</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <svg class="glow" width="320" height="320" style="top:-80px; left:-100px;"><circle cx="160" cy="160" r="160" fill="#6D3CD8"/></svg>
+  <svg class="glow" width="260" height="260" style="top:40px; right:-90px;"><circle cx="130" cy="130" r="130" fill="#F39C2D"/></svg>
+  <div class="wrap">
+    <div>
+      <div class="hero-pill">🚀 For beginners, builders &amp; business owners</div>
+      <h1>Stop watching tutorials.<br>Start <span class="hl">shipping</span> with AI.</h1>
+      <p class="sub">Vibe &amp; Launch is the complete, no-fluff path from "I have an idea" to a real website live on the internet — using Claude and plain English, not code.</p>
+      <div class="ctarow">
+        <a href="#pricing" class="btn-primary">Get the Full Bundle →</a>
+        <a href="#inside" class="btn-ghost">See what's inside</a>
+      </div>
+      <div class="trust">Written by Othniel Chuks — creator of SOLFASCRIBE, launched on Netlify in minutes.</div>
+    </div>
+    <div class="hero-visual">
+      <div class="fan-card fc1"><img src="assets/workbook-cover.png" alt="The Vibe & Launch Workbook" width="230" height="345"></div>
+      <div class="fan-card fc2"><img src="assets/book-cover.png" alt="Vibe & Launch book" width="230" height="345"></div>
+      <div class="fan-card fc3"><img src="assets/quiz-cover.png" alt="The Vibe & Launch Quiz" width="230" height="345"></div>
+      <div class="hero-flame"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM / FIX ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Honest Problem</div>
+      <h2>You don't need another tutorial.<br>You need a finish line.</h2>
+      <p>Most people who want to build something with AI never get past "I watched a video about it." Here's what actually changes that.</p>
+    </div>
+    <div class="pf-grid reveal-stagger">
+      <div class="pf-card pf-old rs-item">
+        <h3>WITHOUT A CLEAR PATH</h3>
+        <div class="pf-row"><span class="ic">😵</span><span>Forty open tabs, no idea which tutorial actually applies to you</span></div>
+        <div class="pf-row"><span class="ic">🌀</span><span>Endless tweaking, no real website ever goes live</span></div>
+        <div class="pf-row"><span class="ic">🤷</span><span>No idea if "static site" or "backend" even applies to your idea</span></div>
+        <div class="pf-row"><span class="ic">📉</span><span>Months pass. Still nothing to show anyone.</span></div>
+      </div>
+      <div class="pf-card pf-new rs-item">
+        <h3>WITH VIBE &amp; LAUNCH</h3>
+        <div class="pf-row"><span class="ic">🎯</span><span>One short book, one real example, start to finish</span></div>
+        <div class="pf-row"><span class="ic">✍️</span><span>Worksheets that turn each chapter into your own project</span></div>
+        <div class="pf-row"><span class="ic">✅</span><span>A quiz that proves the ideas actually stuck</span></div>
+        <div class="pf-row"><span class="ic">🚀</span><span>A real, live link with your name on it — this week</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="section" id="inside" style="background:var(--paper-deep); padding-top:74px;">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">The Full Bundle</div>
+      <h2>Three pieces. One finished website.</h2>
+      <p>Each one builds on the last — read, practice, then prove it to yourself.</p>
+    </div>
+    <div class="prod-grid reveal-stagger">
+      <div class="prod-card rs-item">
+        <div class="pimg"><img src="assets/book-cover.png" alt="Vibe & Launch book" loading="lazy" width="200" height="300"></div>
+        <div class="pbody">
+          <span class="prod-tag">The Book</span>
+          <h3>Vibe &amp; Launch</h3>
+          <ul>
+            <li>The full method: idea → prompt → build → test → launch</li>
+            <li>A real worked example, built with Claude, start to finish</li>
+            <li>Hosting compared plainly: Netlify, Vercel &amp; more</li>
+          </ul>
+          <div class="prod-pages">32 pages · ~25 min read</div>
+        </div>
+      </div>
+      <div class="prod-card rs-item">
+        <div class="pimg"><img src="assets/workbook-cover.png" alt="The Vibe & Launch Workbook" loading="lazy" width="200" height="300"></div>
+        <div class="pbody">
+          <span class="prod-tag">The Workbook</span>
+          <h3>Your Build Companion</h3>
+          <ul>
+            <li>13 fillable worksheets, one per chapter</li>
+            <li>Write your own brief, prompt, and launch plan</li>
+            <li>Ends with a real Certificate of Launch</li>
+          </ul>
+          <div class="prod-pages">23 pages · hands-on</div>
+        </div>
+      </div>
+      <div class="prod-card rs-item">
+        <div class="pimg"><img src="assets/quiz-cover.png" alt="The Vibe & Launch Quiz" loading="lazy" width="200" height="300"></div>
+        <div class="pbody">
+          <span class="prod-tag">The Quiz</span>
+          <h3>Did It Stick?</h3>
+          <ul>
+            <li>21 questions: multiple choice, true/false, scenarios</li>
+            <li>Full answer key with explanations</li>
+            <li>Earn your Sprouting / Confident / Launch-Ready badge</li>
+          </ul>
+          <div class="prod-pages">18 pages · 15 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story">
+  <div class="wrap">
+    <p class="quote reveal">"I built SOLFASCRIBE and launched pt-hub.netlify.app without writing the code myself — <span class="accentmark">just by describing what I wanted, clearly, to Claude.</span> This is the exact path I used, written down so you can walk it too."</p>
+    <div class="who">Othniel Chuks<span>Author, Vibe &amp; Launch</span></div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="section" id="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Pricing</div>
+      <h2>Pick your starting point</h2>
+      <p>One-time payment. Instant download after checkout. No subscriptions.</p>
+      <p style="font-size:12px; color:var(--ink-faint); margin-top:8px;">Charged in Nigerian Naira (₦) via Paystack — card, bank transfer, or USSD. Paying from outside Nigeria? Use <strong>card</strong> — it works internationally, your bank handles the conversion. USD checkout is coming soon.</p>
+    </div>
+
+    <div class="email-capture">
+      <label for="buyerEmail">Enter your email — your download links go here too</label>
+      <input type="email" id="buyerEmail" placeholder="you@example.com" autocomplete="email">
+      <div class="err" id="emailErr" role="alert" aria-live="polite"></div>
+    </div>
+
+    <div class="price-grid reveal-stagger">
+      <div class="price-card rs-item">
+        <h3>The Book</h3>
+        <p class="pdesc">Just the core method and the full worked example.</p>
+        <div class="price-amt">₦2,500</div>
+        <div class="price-usd">≈ $2 USD</div>
+        <ul>
+          <li>Vibe &amp; Launch ebook (32 pages, PDF)</li>
+          <li>The full Anonymous case study</li>
+          <li>Hosting comparison &amp; launch steps</li>
+        </ul>
+        <button class="buy-btn" onclick="payNow(2500,'book',this)">Buy the Book</button>
+      </div>
+
+      <div class="price-card rs-item">
+        <h3>The Workbook</h3>
+        <p class="pdesc">Turn every chapter into action on your own project.</p>
+        <div class="price-amt">₦2,500</div>
+        <div class="price-usd">≈ $2 USD</div>
+        <ul>
+          <li>13 fillable worksheets, one per chapter</li>
+          <li>Write your own brief, prompt, and launch plan</li>
+          <li>Ends with a real Certificate of Launch</li>
+        </ul>
+        <button class="buy-btn" onclick="payNow(2500,'workbook',this)">Buy the Workbook</button>
+      </div>
+
+      <div class="price-card rs-item">
+        <h3>The Quiz</h3>
+        <p class="pdesc">21 questions to prove the ideas actually stuck.</p>
+        <div class="price-amt">₦2,000</div>
+        <div class="price-usd">≈ $2 USD</div>
+        <ul>
+          <li>Multiple choice, true/false &amp; scenarios</li>
+          <li>Full answer key with explanations</li>
+          <li>Earn your Vibecoder badge</li>
+        </ul>
+        <button class="buy-btn" onclick="payNow(2000,'quiz',this)">Buy the Quiz</button>
+      </div>
+
+      <div class="price-card feat rs-item">
+        <div class="price-badge" id="bundleBadge">Best Value</div>
+        <h3>Full Bundle</h3>
+        <p class="pdesc">All three, for less than buying them one by one.</p>
+
+        <div class="currency-toggle" role="group" aria-label="Choose currency">
+          <button type="button" class="curr-btn active" id="currBtnNGN" onclick="setBundleCurrency('NGN')">₦ Naira</button>
+          <button type="button" class="curr-btn" id="currBtnUSD" onclick="setBundleCurrency('USD')">$ USD</button>
+        </div>
+
+        <div class="price-amt" id="bundlePriceAmt">₦5,000</div>
+        <div class="price-usd" id="bundleIntroNote">🔥 Intro price — limited spots left</div>
+        <ul>
+          <li>The Book + The Workbook + The Quiz</li>
+          <li>Everything above, in one checkout</li>
+          <li>Free upgrade when the audiobook ships</li>
+        </ul>
+        <button class="buy-btn" id="bundleBuyBtn" onclick="payNowBundle()">Get Everything</button>
+      </div>
+    </div>
+
+    <div class="resend-box reveal">
+      <div class="resend-title">Already paid but don't have your files?</div>
+      <p class="resend-sub">Paste the reference from your Paystack receipt email and we'll re-confirm your payment and re-issue fresh download links — no need to email anyone.</p>
+      <div class="resend-row">
+        <input type="text" id="resendRef" placeholder="e.g. VL-fullbundle-1782590774084-12345" style="flex:3;">
+        <button class="buy-btn resend-btn" onclick="resendLinks()">Resend Links</button>
+      </div>
+      <div class="err" id="resendErr" role="alert" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq" style="background:var(--paper-deep);">
+  <div class="wrap" style="max-width:740px;">
+    <div class="section-head reveal">
+      <div class="eyebrow">Questions</div>
+      <h2>Before you buy</h2>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>Do I need any coding experience?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">None. This is written for complete beginners, business owners, and curious first-timers — as well as developers who want a faster way to ship side projects.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>What format are the files?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">All three products are PDFs, readable on any phone, tablet, or computer. They're designed to look great on screen, not just in print.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>How do I get my files after paying?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">Right after checkout, we verify your payment directly with Paystack and your download links appear on this page instantly — each link is unique to your purchase and works for 24 hours. Closed the tab before grabbing them? Scroll to "Already paid but don't have your files?" above the FAQ and paste in your payment reference (from your Paystack receipt email) to get fresh links instantly, no email needed.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>My payment method didn't work — what do I do?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">Checkout supports card, bank transfer, and USSD. If one option fails, try card first — it's the most reliable — or try again in a minute. Still stuck? Email <a href="mailto:pthub413@gmail.com" style="color:var(--purple); font-weight:600;" onclick="event.stopPropagation()">pthub413@gmail.com</a> and I'll help you complete it manually.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>Is there a refund policy?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">If the bundle genuinely isn't useful to you, email within 7 days of purchase for a full refund — no long forms, just tell me why.</p>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q"><h4>Which AI tool do I need to follow along?</h4><span class="faq-plus">+</span></div>
+      <p class="faq-a">Claude is what the book uses throughout, but the method works with ChatGPT, Bolt, Lovable, Cursor, or Replit AI too — Chapter 3 covers all of them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA / FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <div class="brand">Vibe &amp; Launch</div>
+        <div class="tag">Build and launch real websites &amp; apps with AI — from first prompt to public launch.</div>
+      </div>
+      <div class="cols">
+        <div class="col">
+          <h5>Get It</h5>
+          <a href="#pricing">Pricing</a>
+          <a href="#inside">What's Inside</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="col">
+          <h5>Contact</h5>
+          <a href="mailto:pthub413@gmail.com">pthub413@gmail.com</a>
+          <span>pt-hub.netlify.app</span>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">© 2026 Othniel Chuks. All rights reserved. · Secure checkout via Paystack</div>
+  </div>
+</footer>
+
+<!-- ============ THANK YOU OVERLAY ============ -->
+<div class="ty-overlay" id="tyOverlay">
+  <div class="ty-box">
+
+    <div class="ty-state active" id="tyVerifying">
+      <div class="spinner"></div>
+      <h3>Confirming your payment…</h3>
+      <p>Paystack says it went through — we're just double-checking with the server before unlocking your files. Usually takes a couple of seconds.</p>
+    </div>
+
+    <div class="ty-state" id="tyRedirecting">
+      <div class="spinner"></div>
+      <h3>Payment Successful! 🎉</h3>
+      <p>Taking you to your download now…</p>
+    </div>
+
+    <div class="ty-state" id="tySuccess">
+      <div style="font-size:40px;">🎉</div>
+      <h3>You're In!</h3>
+      <p>Payment verified — here are your download links. Each one works once, so click to save the file rather than just previewing it.</p>
+      <div class="ty-links" id="tyLinks"></div>
+      <a class="ty-close" onclick="closeOverlay()">Close</a>
+    </div>
+
+    <div class="ty-state" id="tyFallback">
+      <div style="font-size:40px;">📩</div>
+      <h3>Payment Received — Almost There</h3>
+      <p>Your payment went through, but we couldn't auto-confirm it just now. Email your reference below and your files will be sent right away.</p>
+      <div class="ty-ref" id="tyRefBox"></div>
+      <div class="ty-links" style="margin-top:14px;">
+        <a id="tyMailLink" href="#">✉️ Email pthub413@gmail.com with this reference</a>
+      </div>
+      <a class="ty-close" onclick="closeOverlay()">Close</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+<script>
+const PAYSTACK_PUBLIC_KEY = "pk_live_c31cd32b0d035d49be48699cf1d677870bfb8424";
+const SUPPORT_EMAIL = "pthub413@gmail.com";
+
+/* ---------- Reference prefixes Paystack reference IDs use ---------- */
+const REF_PREFIX = {
+  book:       "VL-ebook-",
+  workbook:   "VL-workbook-",
+  quiz:       "VL-quiz-",
+  fullbundle: "VL-fullbundle-"
+};
+
+/* ---------- Checkout ---------- */
+function payNow(amountNaira, plan, btnEl){
+  const emailInput = document.getElementById('buyerEmail');
+  const errBox = document.getElementById('emailErr');
+  const email = emailInput.value.trim();
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  if(!emailOk){
+    errBox.textContent = "Enter a valid email first — that's where your receipt and links go.";
+    emailInput.focus();
+    emailInput.scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  errBox.textContent = "";
+
+  if (typeof PaystackPop === "undefined") {
+    errBox.textContent = "Payment is still loading — give it a second and try again, or check your connection.";
+    return;
+  }
+
+  if (btnEl && btnEl.disabled) return; // already mid-checkout, ignore the extra click
+  const originalLabel = btnEl ? btnEl.textContent : null;
+  if (btnEl) { btnEl.disabled = true; btnEl.textContent = "Opening checkout…"; }
+
+  function reenableButton(){
+    if (btnEl) { btnEl.disabled = false; btnEl.textContent = originalLabel; }
+  }
+
+  const refPrefix = REF_PREFIX[plan] || ('VL-' + plan + '-');
+  const reference = refPrefix + Date.now() + '-' + Math.floor(Math.random()*100000);
+
+  const handler = PaystackPop.setup({
+    key: PAYSTACK_PUBLIC_KEY,
+    email: email,
+    amount: amountNaira * 100, // Paystack expects kobo
+    currency: "NGN",
+    ref: reference,
+    channels: ['card', 'bank', 'bank_transfer', 'ussd', 'qr'],
+    metadata: { plan: plan },
+    callback: function(response){
+      reenableButton();
+      pollForDownload(response.reference, plan);
+    },
+    onClose: function(){
+      reenableButton();
+      showClosedNotice();
+    }
+  });
+  handler.openIframe();
+}
+
+/* ---------- Full Bundle: live tiered, multi-currency pricing ---------- */
+let bundleCurrency = 'NGN';
+let bundlePricing = null; // last fetched {currency, tier, amountMajor, amountMinor, introSpotsLeft}
+
+// Short-lived cache: avoids firing a second identical request if the buyer
+// clicks "Get Everything" within a couple seconds of the page loading —
+// while still re-fetching fresh well before any real risk of a stale price.
+const BUNDLE_PRICE_CACHE_TTL_MS = 4000;
+const bundlePriceCache = {}; // currency -> { data, fetchedAt }
+
+function fetchBundlePrice(currency, opts){
+  opts = opts || {};
+  const forceFresh = !!opts.forceFresh;
+  const maxRetries = opts.maxRetries != null ? opts.maxRetries : 2;
+
+  const cached = bundlePriceCache[currency];
+  if (!forceFresh && cached && (Date.now() - cached.fetchedAt) < BUNDLE_PRICE_CACHE_TTL_MS) {
+    return Promise.resolve(cached.data);
+  }
+
+  function attempt(retriesLeft, delayMs){
+    return fetch('/api/bundle-price?currency=' + currency)
+      .then(function(res){
+        if (!res.ok) throw new Error('Bad response: ' + res.status);
+        return res.json();
+      })
+      .then(function(data){
+        if (!data || data.amountMinor == null) throw new Error('Malformed pricing response');
+        bundlePriceCache[currency] = { data: data, fetchedAt: Date.now() };
+        return data;
+      })
+      .catch(function(err){
+        if (retriesLeft > 0) {
+          return new Promise(function(resolve){ setTimeout(resolve, delayMs); })
+            .then(function(){ return attempt(retriesLeft - 1, delayMs * 2); });
+        }
+        throw err;
+      });
+  }
+
+  return attempt(maxRetries, 400);
+}
+
+function setBundleCurrency(currency){
+  bundleCurrency = currency;
+  document.getElementById('currBtnNGN').classList.toggle('active', currency === 'NGN');
+  document.getElementById('currBtnUSD').classList.toggle('active', currency === 'USD');
+  loadBundlePrice();
+}
+
+function loadBundlePrice(){
+  fetchBundlePrice(bundleCurrency, { maxRetries: 2 })
+    .then(function(data){
+      bundlePricing = data;
+      renderBundlePrice();
+    })
+    .catch(function(){
+      // Be honest rather than silently leaving the static placeholder forever
+      const noteEl = document.getElementById('bundleIntroNote');
+      noteEl.textContent = "Showing standard pricing — couldn't reach the server to confirm the live price yet.";
+    });
+}
+
+function renderBundlePrice(){
+  if (!bundlePricing) return;
+  const amtEl = document.getElementById('bundlePriceAmt');
+  const noteEl = document.getElementById('bundleIntroNote');
+  const badgeEl = document.getElementById('bundleBadge');
+
+  if (bundlePricing.currency === 'NGN') {
+    amtEl.textContent = '₦' + bundlePricing.amountMajor.toLocaleString('en-NG');
+  } else {
+    amtEl.textContent = '$' + bundlePricing.amountMajor.toFixed(2);
+  }
+
+  if (bundlePricing.tier === 'intro') {
+    noteEl.textContent = '🔥 Intro price — ' + bundlePricing.introSpotsLeft + ' spot' + (bundlePricing.introSpotsLeft === 1 ? '' : 's') + ' left at this price';
+    badgeEl.textContent = 'Limited Intro Price';
+  } else {
+    noteEl.textContent = 'Best value — all three in one checkout';
+    badgeEl.textContent = 'Best Value';
+  }
+}
+
+// Load NGN pricing as soon as the page is ready
+document.addEventListener('DOMContentLoaded', loadBundlePrice);
+
+/* ---------- Full Bundle checkout (separate from payNow: tiered + multi-currency) ---------- */
+function payNowBundle(){
+  const emailInput = document.getElementById('buyerEmail');
+  const errBox = document.getElementById('emailErr');
+  const email = emailInput.value.trim();
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  if(!emailOk){
+    errBox.textContent = "Enter a valid email first — that's where your receipt and links go.";
+    emailInput.focus();
+    emailInput.scrollIntoView({behavior:"smooth", block:"center"});
+    return;
+  }
+  errBox.textContent = "";
+
+  if (typeof PaystackPop === "undefined") {
+    errBox.textContent = "Payment is still loading — give it a second and try again, or check your connection.";
+    return;
+  }
+
+  const buyBtn = document.getElementById('bundleBuyBtn');
+  buyBtn.disabled = true;
+  buyBtn.textContent = "Loading current price…";
+
+  // Re-fetch the price fresh (bypassing the cache) right before charging, so
+  // the amount we send to Paystack is guaranteed to match what's
+  // authoritative server-side at this exact moment — and retry transient
+  // failures automatically before giving up.
+  fetchBundlePrice(bundleCurrency, { forceFresh: true, maxRetries: 2 })
+    .then(function(data){
+      buyBtn.disabled = false;
+      buyBtn.textContent = "Get Everything";
+
+      bundlePricing = data;
+      renderBundlePrice();
+
+      const refPrefix = REF_PREFIX.fullbundle;
+      const reference = refPrefix + Date.now() + '-' + Math.floor(Math.random()*100000);
+
+      const channels = data.currency === 'USD'
+        ? ['card']                                          // USD: card only
+        : ['card', 'bank', 'bank_transfer', 'ussd', 'qr'];  // NGN: all channels
+
+      const handler = PaystackPop.setup({
+        key: PAYSTACK_PUBLIC_KEY,
+        email: email,
+        amount: data.amountMinor,
+        currency: data.currency,
+        ref: reference,
+        channels: channels,
+        metadata: { plan: 'fullbundle', tier: data.tier },
+        callback: function(response){
+          pollForDownload(response.reference, 'fullbundle');
+        },
+        onClose: function(){
+          showClosedNotice();
+        }
+      });
+      handler.openIframe();
+    })
+    .catch(function(){
+      buyBtn.disabled = false;
+      buyBtn.textContent = "Get Everything";
+      errBox.textContent = "Couldn't reach the server to load pricing — nothing was charged. Check your connection and click Get Everything again.";
+    });
+}
+
+function showClosedNotice(){
+  const errBox = document.getElementById('emailErr');
+  errBox.style.color = 'var(--ink-faint)';
+  errBox.textContent = "Checkout closed — no charge was made. Click a buy button whenever you're ready.";
+  setTimeout(function(){ errBox.textContent = ""; errBox.style.color = ""; }, 6000);
+}
+
+/* ---------- Poll our backend until the webhook (or fallback check) confirms payment ---------- */
+function pollForDownload(reference, plan){
+  setTyState('tyVerifying');
+  document.getElementById('tyOverlay').classList.add('show');
+
+  let attempts = 0;
+  const maxAttempts = 10;     // ~15 seconds total
+  const intervalMs = 1500;
+
+  function attempt(){
+    attempts++;
+    fetch('/api/get-download?reference=' + encodeURIComponent(reference))
+      .then(function(res){ return res.json().catch(function(){ return { ready:false }; }); })
+      .then(function(data){
+        if (data && data.ready && data.downloads && data.downloads.length) {
+          handleReadyDownloads(data.downloads);
+        } else if (attempts < maxAttempts) {
+          setTimeout(attempt, intervalMs);
+        } else {
+          showFallback(reference);
+        }
+      })
+      .catch(function(){
+        if (attempts < maxAttempts) {
+          setTimeout(attempt, intervalMs);
+        } else {
+          showFallback(reference);
+        }
+      });
+  }
+
+  attempt();
+}
+
+/* ---------- Once tokens are minted: single file = auto-redirect, bundle = show list ---------- */
+function handleReadyDownloads(downloads){
+  if (downloads.length === 1) {
+    setTyState('tyRedirecting');
+    setTimeout(function(){
+      window.location.href = downloads[0].url;
+    }, 900);
+  } else {
+    showSuccess(downloads);
+  }
+}
+
+function showSuccess(downloads){
+  const box = document.getElementById('tyLinks');
+  box.innerHTML = "";
+  downloads.forEach(function(l){
+    const a = document.createElement('a');
+    a.href = l.url;
+    a.textContent = l.label;
+    a.setAttribute('download', '');
+    box.appendChild(a);
+  });
+  setTyState('tySuccess');
+}
+
+function showFallback(reference){
+  document.getElementById('tyRefBox').textContent = "Reference: " + reference;
+  const mail = document.getElementById('tyMailLink');
+  const subject = encodeURIComponent("Vibe & Launch purchase — " + reference);
+  const bodyText = encodeURIComponent("Hi, I just paid for Vibe & Launch.\n\nReference: " + reference + "\n\nPlease send my download links. Thanks!");
+  mail.href = "mailto:" + SUPPORT_EMAIL + "?subject=" + subject + "&body=" + bodyText;
+  setTyState('tyFallback');
+}
+
+/* ---------- Resend / recover links with just a reference ---------- */
+function resendLinks(){
+  const refInput = document.getElementById('resendRef');
+  const errBox = document.getElementById('resendErr');
+  const ref = refInput.value.trim();
+
+  if(!ref){
+    errBox.textContent = "Paste the reference from your payment receipt email.";
+    return;
+  }
+  errBox.textContent = "";
+
+  fetch('/api/resend', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reference: ref })
+  })
+  .then(function(res){ return res.json().catch(function(){ return { ready:false }; }); })
+  .then(function(data){
+    if (data && data.ready && data.downloads && data.downloads.length) {
+      showSuccess(data.downloads);
+      document.getElementById('tyOverlay').classList.add('show');
+    } else {
+      errBox.textContent = "We couldn't confirm that payment yet. Double-check the reference, or wait a few seconds and try again.";
+    }
+  })
+  .catch(function(){
+    errBox.textContent = "Something went wrong reaching the server — try again in a moment.";
+  });
+}
+
+function setTyState(activeId){
+  ['tyVerifying','tyRedirecting','tySuccess','tyFallback'].forEach(function(id){
+    document.getElementById(id).classList.toggle('active', id === activeId);
+  });
+}
+
+function closeOverlay(){
+  document.getElementById('tyOverlay').classList.remove('show');
+}
+
+/* ---------- Mobile nav ---------- */
+function toggleMobileNav(){
+  document.getElementById('navBurger').classList.toggle('open');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+function closeMobileNav(){
+  document.getElementById('navBurger').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+/* ---------- FAQ accordion ---------- */
+function toggleFaq(el){
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(item){ item.classList.remove('open'); });
+  if(!wasOpen){ el.classList.add('open'); }
+}
+
+/* ---------- Scroll reveal + hero entrance ---------- */
+document.addEventListener('DOMContentLoaded', function(){
+  // Hero fan cards stagger in
+  var cards = document.querySelectorAll('.fan-card');
+  cards.forEach(function(card, i){
+    setTimeout(function(){ card.classList.add('in'); }, 150 + i * 200);
+  });
+
+  // Scroll-triggered reveals
+  var targets = document.querySelectorAll('.reveal, .reveal-stagger');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+    targets.forEach(function(t){ observer.observe(t); });
+  } else {
+    targets.forEach(function(t){ t.classList.add('show'); });
+  }
+
+  // Safety net: never let content stay permanently invisible, no matter what.
+  setTimeout(function(){
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(function(t){
+      t.classList.add('show');
+    });
+  }, 4000);
+});
+</script>
+</body>
+</html>
