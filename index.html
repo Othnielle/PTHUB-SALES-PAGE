@@ -874,14 +874,30 @@ function pollForDownload(reference, plan){
 
 /* ---------- Once tokens are minted: single file = auto-redirect, bundle = show list ---------- */
 function handleReadyDownloads(downloads){
-  if (downloads.length === 1) {
-    setTyState('tyRedirecting');
-    setTimeout(function(){
-      window.location.href = downloads[0].url;
-    }, 900);
-  } else {
-    showSuccess(downloads);
-  }
+
+  setTyState('tyRedirecting');
+
+  setTimeout(function(){
+
+    downloads.forEach(function(file, index){
+
+      setTimeout(function(){
+
+        const a = document.createElement('a');
+        a.href = file.url;
+        a.setAttribute('download', '');
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+      }, index * 1200);   // 1.2 seconds apart
+
+    });
+
+    setTimeout(closeOverlay, downloads.length * 1200 + 1000);
+
+  }, 800);
+
 }
 
 function showSuccess(downloads){
